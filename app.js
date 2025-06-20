@@ -14,6 +14,8 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 const app = express();
 config({ path: "./config/config.env" });
 
+console.log('url:',process.env.FRONTEND_URL);
+
 app.use(
     cors({
         origin: process.env.FRONTEND_URL, 
@@ -23,13 +25,13 @@ app.use(
 );
 app.use(express.json());
 app.use(session({
-    secret: 'your-secret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax'
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
     }
 }));
 
