@@ -16,7 +16,7 @@ config({ path: "./config/config.env" });
 
 app.use(
     cors({
-        origin: 'http://localhost:5173',
+        origin: process.env.FRONTEND_URL, 
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE"],
     })
@@ -28,7 +28,7 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        secure: false,
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax'
     }
 }));
