@@ -2,6 +2,7 @@ import express from "express";
 import { config } from 'dotenv';
 import cors from "cors";
 import session from "express-session";
+import mongoose from "mongoose";
 import { dbConnection } from "./database/dbConnection.js";
 import studentRouter from "./router/studentRouter.js";
 import teacherRouter from "./router/teacherRouter.js";
@@ -11,7 +12,12 @@ import usersRouter from "./router/usersRouter.js"
 import adminRegisterRouter from "./router/adminRegisterRouter.js"
 import { errorHandler } from "./middlewares/errorHandler.js";
 
-dbConnection()
+//dbConnection()
+
+const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING ||
+"mongodb+srv://yanbocheng6940:Jdxccz159357!@cluster0.nvvbyea.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
+mongoose.connect(CONNECTION_STRING);
 
 const app = express();
 config({ path: "./config/config.env" });
