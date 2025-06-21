@@ -18,7 +18,8 @@ console.log('url:',process.env.FRONTEND_URL);
 
 app.use(
     cors({
-        origin: process.env.FRONTEND_URL, 
+        origin: process.env.FRONTEND_URL || 'http://localhost:5173', 
+        //origin:'http://localhost:5173',
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE"],
     })
@@ -31,7 +32,7 @@ app.use(session({
     cookie: {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+        sameSite: 'lax'
     }
 }));
 
