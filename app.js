@@ -11,6 +11,8 @@ import usersRouter from "./router/usersRouter.js"
 import adminRegisterRouter from "./router/adminRegisterRouter.js"
 import { errorHandler } from "./middlewares/errorHandler.js";
 
+dbConnection()
+
 const app = express();
 config({ path: "./config/config.env" });
 
@@ -46,8 +48,6 @@ app.use("/api/v1/announcements", announcementRouter);
 
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/register", adminRegisterRouter);
-
-dbConnection()
 
 app.use((err, req, res, next) => {
     errorHandler(err, req, res, next);
