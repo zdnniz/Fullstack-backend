@@ -14,7 +14,7 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 
 //dbConnection()
 
-const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING ||
+const CONNECTION_STRING = process.env.MONGO_URL ||
 "mongodb+srv://yanbocheng6940:Jdxccz159357!@cluster0.nvvbyea.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 mongoose.connect(CONNECTION_STRING);
