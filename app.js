@@ -50,6 +50,15 @@ app.use(session({
 
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/test-conn', async (req, res) => {
+    try {
+      const collections = await mongoose.connection.db.listCollections().toArray();
+      res.json(collections);
+    } catch (err) {
+      res.status(500).json({ message: "Error listing collections", error: err.message });
+    }
+  });
+
 app.use("/api/v1/students", studentRouter);
 app.use("/api/v1/teachers", teacherRouter);
 app.use("/api/v1/assignments", assignmentRouter);
