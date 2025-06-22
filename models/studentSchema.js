@@ -18,7 +18,7 @@ const studentSchema = new mongoose.Schema({
     type:String,
     required:true
   },
-  registerNumber:{
+  registrationNumber:{
     type:String,
     required:false
   },
