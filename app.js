@@ -33,8 +33,30 @@ app.use(
         methods: ["GET", "POST", "PUT", "DELETE"],
     })
 );
+
+const sessionOptions = {
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      sameSite: 'lax',
+      secure: false
+    }
+  };
+  
+  if (process.env.NODE_ENV !== "development") {
+    sessionOptions.proxy = true;
+    sessionOptions.cookie = {
+      sameSite: "none",
+      secure: true,
+    };
+  }
+
+app.set("trust proxy", 1);
+app.use(session(sessionOptions));
 app.use(express.json());
-app.use(session({
+
+/*app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
@@ -44,6 +66,7 @@ app.use(session({
         sameSite: process.env.NODE_ENV === "none",
     }
 }));
+*/
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -63,30 +86,7 @@ app.get('/test-conn', async (req, res) => {
         res.status(500).json({ message: "Test connection failed", error: err.message });
     }
 });
-/*
-app.get('/test-teachers', async (req, res) => {
-    try {
-        const teachers = await mongoose.connection.db.collection('teachers').find().toArray();
-        res.json(teachers);
-    } catch (err) {
-        res.status(500).json({ message: 'Query failed', error: err.message });
-    }
-});
 
-app.get('/insert-test-teacher', async (req, res) => {
-    try {
-        const teacher = await Teacher.create({
-            name: "Test Teacher",
-            email: "test@example.com",
-            subject: "Math",
-            phone: "123456789"
-        });
-        res.json(teacher);
-    } catch (err) {
-        res.status(500).json({ message: 'Insert failed', error: err.message });
-    }
-});
-*/
 app.use("/api/v1/students", studentRouter);
 app.use("/api/v1/teachers", teacherRouter);
 app.use("/api/v1/assignments", assignmentRouter);
