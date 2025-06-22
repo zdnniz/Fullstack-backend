@@ -71,7 +71,19 @@ app.get('/test-conn', async (req, res) => {
     }
   });
   
-
+  app.get('/insert-test-teacher', async (req, res) => {
+    try {
+      const teacher = await Teacher.create({
+        name: "Test Teacher",
+        email: "test@example.com",
+        subject: "Math"
+      });
+      res.json(teacher);
+    } catch (err) {
+      res.status(500).json({ message: 'Insert failed', error: err.message });
+    }
+  });
+  
 app.use("/api/v1/students", studentRouter);
 app.use("/api/v1/teachers", teacherRouter);
 app.use("/api/v1/assignments", assignmentRouter);
