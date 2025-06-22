@@ -18,6 +18,10 @@ const studentSchema = new mongoose.Schema({
     type:String,
     required:true
   },
+  registerNumber:{
+    type:String,
+    required:false
+  },
   assignments: [{  
     type: String,
     //required: true
