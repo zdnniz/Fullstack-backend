@@ -28,6 +28,8 @@ const app = express();
 config({ path: "./config/config.env" });
 
 console.log('url:',process.env.FRONTEND_URL);
+console.log("Connected DB host:", mongoose.connection.host);
+console.log("Connected DB name:", mongoose.connection.name);
 
 app.use(
     cors({
