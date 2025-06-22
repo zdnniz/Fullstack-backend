@@ -15,9 +15,15 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 //dbConnection()
 
 const CONNECTION_STRING = process.env.MONGO_URL ||
-"mongodb+srv://zdennis076:Jdxccz159357!@cluster0.ectjfxy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+"mongodb+srv://yanbocheng6940:Jdxccz159357!@cluster0.nvvbyea.mongodb.net/SCHOOL_MANAGEMENT_SYSTEM?retryWrites=true&w=majority"
 
-mongoose.connect(CONNECTION_STRING);
+mongoose.connect(CONNECTION_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    ssl: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error("MongoDB connection error:", err));  
 
 const app = express();
 config({ path: "./config/config.env" });
