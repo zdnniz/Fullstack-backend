@@ -12,8 +12,6 @@ import usersRouter from "./router/usersRouter.js"
 import adminRegisterRouter from "./router/adminRegisterRouter.js"
 import { errorHandler } from "./middlewares/errorHandler.js";
 
-//dbConnection()
-
 const CONNECTION_STRING = process.env.MONGO_URL ||
 "mongodb+srv://yanbocheng6940:Jdxccz159357!@cluster0.nvvbyea.mongodb.net/SCHOOL_MANAGEMENT_SYSTEM?retryWrites=true&w=majority"
 
