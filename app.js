@@ -3,7 +3,6 @@ import { config } from 'dotenv';
 import cors from "cors";
 import session from "express-session";
 import mongoose from "mongoose";
-import { dbConnection } from "./database/dbConnection.js";
 import studentRouter from "./router/studentRouter.js";
 import teacherRouter from "./router/teacherRouter.js";
 import assignmentRouter from "./router/assignmentRouter.js";
@@ -30,7 +29,6 @@ config({ path: "./config/config.env" });
 app.use(
     cors({
         origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-        //origin:'http://localhost:5173',
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE"],
     })
@@ -65,7 +63,7 @@ app.get('/test-conn', async (req, res) => {
         res.status(500).json({ message: "Test connection failed", error: err.message });
     }
 });
-
+/*
 app.get('/test-teachers', async (req, res) => {
     try {
         const teachers = await mongoose.connection.db.collection('teachers').find().toArray();
@@ -88,7 +86,7 @@ app.get('/insert-test-teacher', async (req, res) => {
         res.status(500).json({ message: 'Insert failed', error: err.message });
     }
 });
-
+*/
 app.use("/api/v1/students", studentRouter);
 app.use("/api/v1/teachers", teacherRouter);
 app.use("/api/v1/assignments", assignmentRouter);
