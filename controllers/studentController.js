@@ -2,12 +2,12 @@ import { Student } from "../models/studentSchema.js";
 
 export const createStudent = async (req, res, next) => {
   console.log(req.body);
-  const { name, age, grade, email } = req.body;
+  const { name, age, grade, email, registrationNumber } = req.body;
   try {
-   if (!name || !age || !grade || !email) {
+   if (!name || !age || !grade || !email || !registrationNumber) {
     return next("Please Fill Full Form!", 400);
   }
-  await Student.create({ name, age, grade, email });
+  await Student.create({ name, age, grade, email, registrationNumber });
   res.status(200).json({
     success: true,
     message: "Student Created!",
@@ -97,10 +97,10 @@ export const countStudents = async (req, res) => {
 
 export const updateStudent = async (req, res) => {
   const { id } = req.params;
-  const { name, age, grade, email } = req.body;
+  const { name, age, grade, email, registrationNumber } = req.body;
 
   try {
-    const updated = await Student.findByIdAndUpdate(id, { name, age, grade, email }, { new: true });
+    const updated = await Student.findByIdAndUpdate(id, { name, age, grade, email, registrationNumber }, { new: true });
 
     if (!updated) {
       return res.status(404).json({ message: "Student not found" });
