@@ -21,6 +21,7 @@ export const createTeacher = async (req, res, next) => {
 export const getAllTeachers = async (req, res, next) => {
   try {
     const teachers = await Teacher.find();
+    console.log("teachers:", teachers);
     res.status(200).json({
       success: true,
       teachers,
