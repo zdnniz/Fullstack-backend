@@ -11,6 +11,7 @@ import announcementRouter from "./router/announcementRouter.js";
 import usersRouter from "./router/usersRouter.js"
 import adminRegisterRouter from "./router/adminRegisterRouter.js"
 import { errorHandler } from "./middlewares/errorHandler.js";
+import { Teacher } from "./models/teacherSchema.js"; 
 
 const CONNECTION_STRING = process.env.MONGO_URL ||
 "mongodb+srv://yanbocheng6940:Jdxccz159357!@cluster0.nvvbyea.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
@@ -76,7 +77,8 @@ app.get('/test-conn', async (req, res) => {
       const teacher = await Teacher.create({
         name: "Test Teacher",
         email: "test@example.com",
-        subject: "Math"
+        subject: "Math",
+        phone: "123456789"
       });
       res.json(teacher);
     } catch (err) {
