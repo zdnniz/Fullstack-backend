@@ -53,11 +53,24 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/test-conn', async (req, res) => {
     try {
       const collections = await mongoose.connection.db.listCollections().toArray();
-      res.json(collections);
+      res.json({
+        connectedDb: mongoose.connection.name,
+        collections: collections.map(c => c.name)
+      });
     } catch (err) {
-      res.status(500).json({ message: "Error listing collections", error: err.message });
+      res.status(500).json({ message: "Test connection failed", error: err.message });
     }
   });
+
+  app.get('/test-teachers', async (req, res) => {
+    try {
+      const teachers = await mongoose.connection.db.collection('teachers').find().toArray();
+      res.json(teachers);
+    } catch (err) {
+      res.status(500).json({ message: 'Query failed', error: err.message });
+    }
+  });
+  
 
 app.use("/api/v1/students", studentRouter);
 app.use("/api/v1/teachers", teacherRouter);
